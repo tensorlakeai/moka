@@ -5332,19 +5332,10 @@ mod tests {
     /// Reproduces a bug where `optionally_get_with` on an expired but not yet evicted
     /// entry causes the new value's expiration to be cleared, making it never expire.
     ///
-    /// 1. optionally_get_with misses at time 0, inserts value 1 with 2s expr
-    /// 2. Housekeeping will happen at 0.3, 0.6, 0.9, 1.2, 1.5, 1.8s
-    /// 2. optionally_get_with hits (entry not expired yet) at time 1.98s.
-    /// 3. optionally_get_with misses (expired) at 2.01s
-    ///    - Since housekeeping has not happened, the entry is not evicted, meaning that this is
-    ///      an UPDATE operation in do_insert_with_hash.
-    ///    - In do_insert_with_hash, the 'current' time (ts) is _after_ the entry expiration
-    ///    - In expire_after_read_or_update (line 694) called from do_post_update_steps, the
-    ///      expiration time is before the current time, resulting in a None value
-    ///    - None is passed as the current_time to the default expire_after_update, which returns
-    ///      None
-    ///    - duration is now None and current_per_entry_exp_time is Some, resulting in no expiration
-    /// 4. optionally_get_with HITS value 2 at time 12.01s, and indefinitely after that
+    /// 1. `optionally_get_with` misses at t=0 and inserts value 1 with 2s expiry.
+    /// 2. At t=1.98s, `optionally_get_with` still hits value 1.
+    /// 3. At t=2.01s (expired, not yet evicted), `optionally_get_with` should miss and create value 2.
+    /// 4. At t=12.01s, value 2 should also be expired; `optionally_get_with` should create a new value.
     #[test]
     fn test_optionally_get_with_expired_entry_bug() {
         use crate::common::time::Clock;
