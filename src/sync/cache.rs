@@ -5338,7 +5338,6 @@ mod tests {
     /// 4. At t=12.01s, value 2 should also be expired; `optionally_get_with` should create a new value.
     #[test]
     fn test_optionally_get_with_expired_entry_bug() {
-        use crate::common::time::Clock;
         use std::sync::atomic::{AtomicU32, Ordering};
 
         struct CreateOnlyExpiry;
