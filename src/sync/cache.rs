@@ -5382,18 +5382,18 @@ mod tests {
         };
 
         // 1 - time 0
-        let value = cache.optionally_get_with("key", || next_value());
+        let value = cache.optionally_get_with("key", next_value);
         assert_eq!(value, Some(1), "First access should return 1");
         cache.run_pending_tasks();
 
         // 2 - time 1.98s
         mock.increment(Duration::from_millis(1980));
-        let value = cache.optionally_get_with("key", || next_value());
+        let value = cache.optionally_get_with("key", next_value);
         assert_eq!(value, Some(1), "Access at 1.98s should hit and return 1");
 
         // 3 - time 2.01s Entry is expired but NOT evicted (no housekeeping since expiration)
         mock.increment(Duration::from_millis(30)); // 2.01s
-        let value = cache.optionally_get_with("key", || next_value());
+        let value = cache.optionally_get_with("key", next_value);
         assert_eq!(value, Some(2), "Access at 2.01s should miss and return 2");
         cache.run_pending_tasks();
 
@@ -5401,7 +5401,7 @@ mod tests {
         mock.increment(Duration::from_secs(10)); // Now at 12.01s
         cache.run_pending_tasks();
 
-        let value = cache.optionally_get_with("key", || next_value());
+        let value = cache.optionally_get_with("key", next_value);
         assert_ne!(value, Some(2), "Access at 12.01s should not still be 2");
     }
 }
