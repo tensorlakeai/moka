@@ -4845,7 +4845,7 @@ mod tests {
     // This test is ignored by default. It becomes unstable when run in parallel
     // with other tests.
     #[test]
-    #[ignore]
+    #[cfg_attr(not(run_flaky_tests), ignore)]
     fn test_key_lock_used_by_immediate_removal_notifications() {
         use std::thread::{sleep, spawn};
 
@@ -5203,7 +5203,7 @@ mod tests {
     // Ignored by default. This test becomes unstable when run in parallel with
     // other tests.
     #[test]
-    #[ignore]
+    #[cfg_attr(not(run_flaky_tests), ignore)]
     fn drop_value_immediately_after_eviction() {
         use crate::common::test_utils::{Counters, Value};
 
@@ -5265,7 +5265,7 @@ mod tests {
     // Ignored by default. This test becomes unstable when run in parallel with
     // other tests.
     #[test]
-    #[ignore]
+    #[cfg_attr(not(run_flaky_tests), ignore)]
     fn ensure_gc_runs_when_dropping_cache() {
         let cache = Cache::builder().build();
         let val = Arc::new(0);

@@ -44,16 +44,34 @@ jobs:
           RUSTFLAGS: '--cfg skip_large_mem_tests'
 
       - name: Run tests (sync feature, key lock test for notification)
-        run: cargo test --release --lib --features sync sync::cache::tests::test_key_lock_used_by_immediate_removal_notifications -- --exact --ignored
+        run: cargo test --release --lib --features sync sync::cache::tests::test_key_lock_used_by_immediate_removal_notifications -- --exact
+        env:
+          RUSTFLAGS: '--cfg run_flaky_tests'
 
       - name: Run tests (sync feature, drop value after eviction for sync::Cache)
-        run: cargo test --release --lib --features sync sync::cache::tests::drop_value_immediately_after_eviction -- --exact --ignored
+        run: cargo test --release --lib --features sync sync::cache::tests::drop_value_immediately_after_eviction -- --exact
+        env:
+          RUSTFLAGS: '--cfg run_flaky_tests'
 
       - name: Run tests (sync feature, drop value after eviction for sync::SegmentedCache)
-        run: cargo test --release --lib --features sync sync::segment::tests::drop_value_immediately_after_eviction -- --exact --ignored
+        run: cargo test --release --lib --features sync sync::segment::tests::drop_value_immediately_after_eviction -- --exact
+        env:
+          RUSTFLAGS: '--cfg run_flaky_tests'
 
       - name: Run tests (sync feature, drop cache)
-        run: cargo test --release --lib --features sync sync::cache::tests::ensure_gc_runs_when_dropping_cache -- --exact --ignored
+        run: cargo test --release --lib --features sync sync::cache::tests::ensure_gc_runs_when_dropping_cache -- --exact
+        env:
+          RUSTFLAGS: '--cfg run_flaky_tests'
+
+      - name: Run tests (future feature, drop value after eviction for future::Cache)
+        run: cargo test --release --lib --features future future::cache::tests::drop_value_immediately_after_eviction -- --exact
+        env:
+          RUSTFLAGS: '--cfg run_flaky_tests'
+
+      - name: Run tests (future feature, drop cache for future::Cache)
+        run: cargo test --release --lib --features future future::cache::tests::ensure_gc_runs_when_dropping_cache -- --exact
+        env:
+          RUSTFLAGS: '--cfg run_flaky_tests'
 
       - name: Run tests (future feature)
         run: cargo test --features future

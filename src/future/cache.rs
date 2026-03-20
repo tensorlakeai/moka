@@ -5596,7 +5596,10 @@ mod tests {
         cache.invalidate(key_s).await;
     }
 
+    // Ignored by default. This test becomes unstable when run in parallel with
+    // other tests.
     #[tokio::test]
+    #[cfg_attr(not(run_flaky_tests), ignore)]
     async fn drop_value_immediately_after_eviction() {
         use crate::common::test_utils::{Counters, Value};
 
@@ -5696,7 +5699,11 @@ mod tests {
     }
 
     // https://github.com/moka-rs/moka/issues/383
+    //
+    // Ignored by default. This test becomes unstable when run in parallel with
+    // other tests.
     #[tokio::test]
+    #[cfg_attr(not(run_flaky_tests), ignore)]
     async fn ensure_gc_runs_when_dropping_cache() {
         let cache = Cache::builder().build();
         let val = Arc::new(0);
