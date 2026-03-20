@@ -89,3 +89,13 @@ jobs:
         run: cargo test --release --lib --features 'sync, quanta' sync::cache::tests::ensure_gc_runs_when_dropping_cache -- --exact
         env:
           RUSTFLAGS: '--cfg run_flaky_tests'
+
+      - name: Run tests (future, quanta features, drop value after eviction for future::Cache)
+        run: cargo test --release --lib --features 'future, quanta' future::cache::tests::drop_value_immediately_after_eviction -- --exact
+        env:
+          RUSTFLAGS: '--cfg run_flaky_tests'
+
+      - name: Run tests (future, quanta features, drop cache for future::Cache)
+        run: cargo test --release --lib --features 'future, quanta' future::cache::tests::ensure_gc_runs_when_dropping_cache -- --exact
+        env:
+          RUSTFLAGS: '--cfg run_flaky_tests'

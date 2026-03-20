@@ -104,6 +104,16 @@ jobs:
         env:
           RUSTFLAGS: '--cfg run_flaky_tests'
 
+      - name: Run tests (future feature, drop value after eviction for future::Cache)
+        run: cargo test --release --lib --features future future::cache::tests::drop_value_immediately_after_eviction -- --exact
+        env:
+          RUSTFLAGS: '--cfg run_flaky_tests'
+
+      - name: Run tests (future feature, drop cache for future::Cache)
+        run: cargo test --release --lib --features future future::cache::tests::ensure_gc_runs_when_dropping_cache -- --exact
+        env:
+          RUSTFLAGS: '--cfg run_flaky_tests'
+
       - name: Run tests (future feature, but no sync feature)
         run: cargo test --features future
 
