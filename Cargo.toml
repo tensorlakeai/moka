@@ -113,6 +113,7 @@ unexpected_cfgs = { level = "warn", check-cfg = [
     "cfg(kani)",
     "cfg(moka_loom)",
     "cfg(mips)",
+    "cfg(run_flaky_tests)",
     "cfg(skip_large_mem_tests)",
     "cfg(trybuild)",
 ] }
