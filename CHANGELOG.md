@@ -1,8 +1,42 @@
 # Moka Cache &mdash; Change Log
 
 > [!NOTE]
-> If you have any questions about Moka's APIs or internal design, ask the AI chatbot
-> at DeepWiki in any natural language: <https://deepwiki.com/moka-rs/moka>
+> If you have any questions about Moka's APIs or internal design, you can ask the
+> AI chatbot at DeepWiki in a natural language:
+> <https://deepwiki.com/moka-rs/moka>
+
+## Version 0.12.15
+
+### Fixed
+
+- Fixed a bug where re-inserting an expired entry could cause it to lose its
+  expiration time and remain in the cache indefinitely when using a custom `Expiry`
+  policy with per-entry expiration. ([#582][gh-pull-0582] by [@jiangzhe][gh-jiangzhe],
+  [#581][gh-pull-0581] by [@atrocities][gh-atrocities], reported in
+  [#575][gh-issue-0575]):
+    - This occurred when an entry that had expired but not yet been evicted was
+      re-inserted, and `expire_after_update` returned `None`. This primarily
+      affected users who only override `expire_after_create`, since the default
+      `expire_after_update` returns `duration_until_expiry`, which is `None` for
+      expired entries.
+    - This bug was introduced by the changes in v0.12.13 ([#549][gh-pull-0549] and
+      [#564][gh-pull-0564]).
+    - **Subtle behavior change**:
+        - Before this fix, re-inserting an expired entry was treated as an update,
+          so `Expiry::expire_after_update` was called.
+        - After this fix, re-inserting an expired entry is treated as a creation,
+          so `Expiry::expire_after_create` is called instead.
+        - This may change the expiration time of re-inserted entries, depending on
+          your `Expiry` trait implementation.
+
+### Changed
+
+- Disabled flaky GC-dependent tests by default using `run_flaky_tests` cfg
+  ([#584][gh-pull-0584]):
+    - These tests rely on epoch-based garbage collection (`crossbeam-epoch`) timing
+      that is not guaranteed, causing intermittent failures.
+    - Fixed [#539][gh-issue-0539] and [#580][gh-issue-0580].
+    - To run these tests, set `RUSTFLAGS='--cfg run_flaky_tests'`.
 
 ## Version 0.12.14
 
@@ -1044,6 +1078,7 @@ The minimum supported Rust version (MSRV) is now 1.51.0 (Mar 25, 2021).
 [gh-alexanderkjall]: https://github.com/alexanderkjall
 [gh-arcstur]: https://github.com/arcstur
 [gh-aspect]: https://github.com/aspect
+[gh-atrocities]: https://github.com/atrocities
 [gh-awarus]: https://github.com/awarus
 [gh-barkanido]: https://github.com/barkanido
 [gh-brownjohnf]: https://github.com/brownjohnf
@@ -1051,6 +1086,7 @@ The minimum supported Rust version (MSRV) is now 1.51.0 (Mar 25, 2021).
 [gh-eaufavor]: https://github.com/eaufavor
 [gh-Expyron]: https://github.com/Expyron
 [gh-JoJoDeveloping]: https://github.com/JoJoDeveloping
+[gh-jiangzhe]: https://github.com/jiangzhe
 [gh-karankurbur]: https://github.com/karankurbur
 [gh-koushiro]: https://github.com/koushiro
 [gh-LMJW]: https://github.com/LMJW
@@ -1074,7 +1110,10 @@ The minimum supported Rust version (MSRV) is now 1.51.0 (Mar 25, 2021).
 [gh-xuehaonan27]: https://github.com/xuehaonan27
 [gh-zonyitoo]: https://github.com/zonyitoo
 
+[gh-issue-0580]: https://github.com/moka-rs/moka/issues/580/
+[gh-issue-0575]: https://github.com/moka-rs/moka/issues/575/
 [gh-issue-0565]: https://github.com/moka-rs/moka/issues/565/
+[gh-issue-0539]: https://github.com/moka-rs/moka/issues/539/
 [gh-issue-0472]: https://github.com/moka-rs/moka/issues/472/
 [gh-issue-0464]: https://github.com/moka-rs/moka/issues/464/
 [gh-issue-0412]: https://github.com/moka-rs/moka/issues/412/
@@ -1100,6 +1139,10 @@ The minimum supported Rust version (MSRV) is now 1.51.0 (Mar 25, 2021).
 [gh-issue-0034]: https://github.com/moka-rs/moka/issues/34/
 [gh-issue-0031]: https://github.com/moka-rs/moka/issues/31/
 
+[gh-pull-0584]: https://github.com/moka-rs/moka/pull/584/
+[gh-pull-0583]: https://github.com/moka-rs/moka/pull/583/
+[gh-pull-0582]: https://github.com/moka-rs/moka/pull/582/
+[gh-pull-0581]: https://github.com/moka-rs/moka/pull/581/
 [gh-pull-0577]: https://github.com/moka-rs/moka/pull/577/
 [gh-pull-0574]: https://github.com/moka-rs/moka/pull/574/
 [gh-pull-0570]: https://github.com/moka-rs/moka/pull/570/
