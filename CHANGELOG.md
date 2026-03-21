@@ -28,12 +28,13 @@
           so `Expiry::expire_after_create` is called instead.
         - This may change the expiration time of re-inserted entries, depending on
           your `Expiry` trait implementation.
-- Fixed a flaky test `cht::segment::tests::drop_many_values_concurrent` that was
-  failing on high-core-count machines ([#586][gh-pull-0586]):
-    - The test was using a CPU-dependent segment count, causing inconsistent
+- Fixed flaky tests `cht::segment::tests::drop_many_values` and
+  `drop_many_values_concurrent` that were failing on high-core-count machines
+  ([#586][gh-pull-0586]):
+    - These tests were using a CPU-dependent segment count, causing inconsistent
       bucket array shrinking behavior of the internal segmented hash map across
       different machines.
-    - Changed the test to use a fixed segment count (4) for consistent results.
+    - Changed these tests to use a fixed segment count (4) for consistent results.
 
 ### Changed
 

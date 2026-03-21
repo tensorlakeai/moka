@@ -1333,7 +1333,11 @@ mod tests {
             .collect();
 
         {
-            let map = HashMap::with_capacity(0);
+            let map = HashMap::with_num_segments_capacity_and_hasher(
+                4,
+                0,
+                DefaultHashBuilder::default(),
+            );
             assert!(map.is_empty());
             assert_eq!(map.len(), 0);
 
