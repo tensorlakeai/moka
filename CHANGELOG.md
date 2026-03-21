@@ -28,6 +28,13 @@
           so `Expiry::expire_after_create` is called instead.
         - This may change the expiration time of re-inserted entries, depending on
           your `Expiry` trait implementation.
+- Fixed flaky tests `cht::segment::tests::drop_many_values` and
+  `drop_many_values_concurrent` that were failing on high-core-count machines
+  ([#586][gh-pull-0586]):
+    - These tests were using a CPU-dependent segment count, causing inconsistent
+      bucket array shrinking behavior of the internal segmented hash map across
+      different machines.
+    - Changed these tests to use a fixed segment count (4) for consistent results.
 
 ### Changed
 
@@ -1139,6 +1146,7 @@ The minimum supported Rust version (MSRV) is now 1.51.0 (Mar 25, 2021).
 [gh-issue-0034]: https://github.com/moka-rs/moka/issues/34/
 [gh-issue-0031]: https://github.com/moka-rs/moka/issues/31/
 
+[gh-pull-0586]: https://github.com/moka-rs/moka/pull/586/
 [gh-pull-0584]: https://github.com/moka-rs/moka/pull/584/
 [gh-pull-0582]: https://github.com/moka-rs/moka/pull/582/
 [gh-pull-0581]: https://github.com/moka-rs/moka/pull/581/
