@@ -37,11 +37,11 @@
 
 ## 5. Update sync::base_cache
 
-- [ ] 5.1 Remove duplicated expiry functions from `src/sync/base_cache.rs`
-- [ ] 5.2 Remove duplicated types from `src/sync/base_cache.rs`
-- [ ] 5.3 Remove duplicated admission logic functions from `src/sync/base_cache.rs`
-- [ ] 5.4 Update imports to use shared module
-- [ ] 5.5 Verify compilation
+- [x] 5.1 Remove duplicated expiry functions from `src/sync/base_cache.rs`
+- [x] 5.2 Remove duplicated types from `src/sync/base_cache.rs`
+- [x] 5.3 Remove duplicated admission logic functions from `src/sync/base_cache.rs`
+- [x] 5.4 Update imports to use shared module
+- [x] 5.5 Verify compilation
 
 ## 6. Update future::base_cache
 

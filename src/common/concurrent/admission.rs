@@ -4,17 +4,15 @@
 //! in the TinyLFU eviction policy.
 
 use crate::{
+    cht::SegmentedHashMap,
     common::{
-        concurrent::{
-            arc::MiniArc, deques::Deques, AccessTime, KeyHash, KeyHashDate, ValueEntry,
-        },
+        concurrent::{arc::MiniArc, deques::Deques, AccessTime, KeyHash, KeyHashDate, ValueEntry},
         deque::{DeqNode, Deque},
         frequency_sketch::FrequencySketch,
         time::Instant,
         timer_wheel::{ReschedulingResult, TimerWheel},
         CacheRegion,
     },
-    cht::SegmentedHashMap,
 };
 
 use smallvec::SmallVec;
@@ -111,7 +109,22 @@ pub(crate) enum AdmissionResult<K> {
 /// Type alias for the cache hash map store.
 type CacheStore<K, V, S> = SegmentedHashMap<Arc<K>, MiniArc<ValueEntry<K, V>>, S>;
 
-/// Performs admission decision for a candidate entry.
+/// Performs size-aware admission explained in the paper:
+/// [Lightweight Robust Size Aware Cache Management][size-aware-cache-paper]
+/// by Gil Einziger, Ohad Eytan, Roy Friedman, Ben Manes.
+///
+/// [size-aware-cache-paper]: https://arxiv.org/abs/2105.08770
+///
+/// There are some modifications in this implementation:
+/// - To admit to the main space, candidate's frequency must be higher than
+///   the aggregated frequencies of the potential victims. (In the paper,
+///   `>=` operator is used rather than `>`)  The `>` operator will do a better
+///   job to prevent the main space from polluting.
+/// - When a candidate is rejected, the potential victims will stay at the LRU
+///   position of the probation access-order queue. (In the paper, they will be
+///   promoted (to the MRU position?) to force the eviction policy to select a
+///   different set of victims for the next candidate). We may implement the
+///   paper's behavior later?
 ///
 /// Returns `AdmissionResult::Admitted` with victim keys if the candidate should be
 /// admitted, or `AdmissionResult::Rejected` otherwise.
