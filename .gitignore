@@ -1,8 +1,11 @@
+.DS_Store
 **/*.rs.bk
 **/*~
-.DS_Store
 /target/
 Cargo.lock
 
 # intellij cache
 .idea
+
+# local work files, not to be committed
+/z/
