@@ -1,15 +1,15 @@
 ## 1. Create expiry.rs module
 
-- [ ] 1.1 Create `src/common/concurrent/expiry.rs` file
-- [ ] 1.2 Extract `is_expired_by_per_entry_ttl` function
-- [ ] 1.3 Extract `is_expired_entry_ao` function
-- [ ] 1.4 Extract `is_expired_entry_wo` function
-- [ ] 1.5 Extract `is_entry_expired_ao_or_invalid` function
-- [ ] 1.6 Extract `is_entry_expired_wo_or_invalid` function
-- [ ] 1.7 Extract `is_invalid_entry` function
-- [ ] 1.8 Extract `is_expired_by_tti` function
-- [ ] 1.9 Extract `is_expired_by_ttl` function
-- [ ] 1.10 Add `#[inline]` attribute to all functions
+- [x] 1.1 Create `src/common/concurrent/expiry.rs` file
+- [x] 1.2 Extract `is_expired_by_per_entry_ttl` function
+- [x] 1.3 Extract `is_expired_entry_ao` function
+- [x] 1.4 Extract `is_expired_entry_wo` function
+- [x] 1.5 Extract `is_entry_expired_ao_or_invalid` function
+- [x] 1.6 Extract `is_entry_expired_wo_or_invalid` function
+- [x] 1.7 Extract `is_invalid_entry` function
+- [x] 1.8 Extract `is_expired_by_tti` function
+- [x] 1.9 Extract `is_expired_by_ttl` function
+- [x] 1.10 Add `#[inline]` attribute to all functions
 
 ## 2. Create admission.rs module (types)
 
@@ -30,9 +30,9 @@
 
 ## 4. Update module exports
 
-- [ ] 4.1 Add `pub(crate) mod expiry;` to `src/common/concurrent.rs`
+- [x] 4.1 Add `pub(crate) mod expiry;` to `src/common/concurrent.rs`
 - [ ] 4.2 Add `pub(crate) mod admission;` to `src/common/concurrent.rs`
-- [ ] 4.3 Add `pub(crate) use expiry::*;` to re-export functions
+- [x] 4.3 ~~Add re-export for expiry functions~~ (Removed: callers use `expiry::function_name` directly)
 - [ ] 4.4 Add `pub(crate) use admission::{...};` to re-export types
 
 ## 5. Update sync::base_cache

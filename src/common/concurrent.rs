@@ -8,6 +8,7 @@ pub(crate) mod arc;
 pub(crate) mod constants;
 pub(crate) mod deques;
 pub(crate) mod entry_info;
+pub(crate) mod expiry;
 
 #[cfg(feature = "sync")]
 pub(crate) mod housekeeper;

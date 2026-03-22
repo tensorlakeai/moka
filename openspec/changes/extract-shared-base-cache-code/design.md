@@ -78,16 +78,21 @@ All methods operate on passed-in mutable references without acquiring locks them
 
 ### 4. Module Re-exports
 
-**Decision:** Add re-exports in `src/common/concurrent.rs`:
+**Decision:** No re-exports for expiry functions. Callers will use `crate::common::concurrent::expiry::function_name`.
+
+For admission types, re-export only the type names:
 ```rust
 pub(crate) mod expiry;
 pub(crate) mod admission;
 
-pub(crate) use expiry::*;
 pub(crate) use admission::{EvictionCounters, EntrySizeAndFrequency, AdmissionResult};
 ```
 
-**Rationale:** Allows `use crate::common::concurrent::*` to work as before.
+**Rationale:**
+- Avoids namespace pollution from function-level re-exports
+- Makes it clear that functions are related to expiry logic when using `expiry::function_name`
+- Prevents potential naming conflicts with other modules
+- Type re-exports for admission are acceptable since types are typically used directly and the names are distinctive
 
 ## Risks / Trade-offs
 
