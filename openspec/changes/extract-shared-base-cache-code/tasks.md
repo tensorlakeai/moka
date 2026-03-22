@@ -20,13 +20,13 @@
 
 ## 3. Create admission.rs module (logic)
 
-- [ ] 3.1 Extract `admit` function with all size-aware admission logic
-- [ ] 3.2 Extract `handle_admit` function
-- [ ] 3.3 Extract `update_timer_wheel` function
-- [ ] 3.4 Extract `handle_remove` function
-- [ ] 3.5 Extract `handle_remove_with_deques` function
-- [ ] 3.6 Extract `handle_remove_without_timer_wheel` function
-- [ ] 3.7 Add `#[inline]` attributes where appropriate
+- [x] 3.1 Extract `admit` function with all size-aware admission logic
+- [x] 3.2 Extract `handle_admit` function
+- [x] 3.3 Extract `update_timer_wheel` function
+- [x] 3.4 Extract `handle_remove` function
+- [x] 3.5 Extract `handle_remove_with_deques` function
+- [x] 3.6 Extract `handle_remove_without_timer_wheel` function
+- [x] 3.7 Add `#[inline]` attributes where appropriate
 
 ## 4. Update module exports
 
