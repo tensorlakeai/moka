@@ -14,6 +14,7 @@ categories = ["caching", "concurrency"]
 readme = "README.md"
 exclude = [
     ".ci_extras/",
+    ".claude/",
     ".codecov.yml",
     ".devcontainer",
     ".github",
@@ -22,8 +23,10 @@ exclude = [
     ".markdownlint.json",
     ".vscode",
     "CHANGELOG.md",
+    "CLAUDE.md",
     "examples",
     "MIGRATION-GUIDE.md",
+    "openspec/",
     "tests/compile_tests/",
 ]
 
