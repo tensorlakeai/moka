@@ -17,9 +17,8 @@ use crate::{
             },
             deques::Deques,
             entry_info::EntryInfo,
-            expiry,
-            AccessTime, KeyHash, KeyHashDate, KvEntry, OldEntryInfo, ReadOp, ValueEntry, Weigher,
-            WriteOp,
+            expiry, AccessTime, KeyHash, KeyHashDate, KvEntry, OldEntryInfo, ReadOp, ValueEntry,
+            Weigher, WriteOp,
         },
         deque::Deque,
         frequency_sketch::FrequencySketch,
@@ -2050,7 +2049,13 @@ where
                         .await;
                 }
                 eviction_state.counters.incr_eviction_count();
-                admission::handle_remove(deqs, timer_wheel, entry, None, &mut eviction_state.counters);
+                admission::handle_remove(
+                    deqs,
+                    timer_wheel,
+                    entry,
+                    None,
+                    &mut eviction_state.counters,
+                );
             } else {
                 self.skip_updated_entry_wo(&key, hash, deqs);
                 more_to_evict = false;

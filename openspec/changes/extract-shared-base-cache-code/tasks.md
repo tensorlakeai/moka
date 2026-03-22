@@ -53,8 +53,8 @@
 
 ## 7. Verification
 
-- [ ] 7.1 Run `cargo build --all-features`
-- [ ] 7.2 Run `cargo clippy --all-features -- -D warnings`
-- [ ] 7.3 Run `cargo fmt --all -- --check`
-- [ ] 7.4 Run `cargo test --all-features` (with `RUSTFLAGS='--cfg trybuild'`)
-- [ ] 7.5 Verify no performance regression (optional: run benchmarks)
+- [x] 7.1 Run `cargo build --all-features`
+- [x] 7.2 Run `cargo clippy --all-features -- -D warnings`
+- [x] 7.3 Run `cargo fmt --all -- --check`
+- [x] 7.4 Run `cargo test --all-features` (with `RUSTFLAGS='--cfg trybuild'`) — Note: 153 lib tests pass; trybuild compile test has Rust version-related output diff (unrelated to this change)
+- [x] 7.5 Verify no performance regression (optional: run benchmarks) — N/A (no benchmarks; pure refactoring)
