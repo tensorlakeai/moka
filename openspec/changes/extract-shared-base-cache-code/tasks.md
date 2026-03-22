@@ -45,11 +45,11 @@
 
 ## 6. Update future::base_cache
 
-- [ ] 6.1 Remove duplicated expiry functions from `src/future/base_cache.rs`
-- [ ] 6.2 Remove duplicated types from `src/future/base_cache.rs`
-- [ ] 6.3 Remove duplicated admission logic functions from `src/future/base_cache.rs`
-- [ ] 6.4 Update imports to use shared module
-- [ ] 6.5 Verify compilation
+- [x] 6.1 Remove duplicated expiry functions from `src/future/base_cache.rs`
+- [x] 6.2 Remove duplicated types from `src/future/base_cache.rs`
+- [x] 6.3 Remove duplicated admission logic functions from `src/future/base_cache.rs`
+- [x] 6.4 Update imports to use shared module
+- [x] 6.5 Verify compilation
 
 ## 7. Verification
 
