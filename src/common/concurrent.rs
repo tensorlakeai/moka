@@ -4,6 +4,7 @@ use parking_lot::Mutex;
 use std::{fmt, ptr::NonNull, sync::Arc};
 use tagptr::TagNonNull;
 
+pub(crate) mod admission;
 pub(crate) mod arc;
 pub(crate) mod constants;
 pub(crate) mod deques;
@@ -399,3 +400,6 @@ impl<K, V> OldEntryInfo<K, V> {
         }
     }
 }
+
+// Re-export admission types for use by sync and future base_cache modules.
+pub(crate) use admission::{AdmissionResult, EntrySizeAndFrequency, EvictionCounters};

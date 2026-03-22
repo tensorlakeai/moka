@@ -13,10 +13,10 @@
 
 ## 2. Create admission.rs module (types)
 
-- [ ] 2.1 Create `src/common/concurrent/admission.rs` file
-- [ ] 2.2 Extract `EvictionCounters` struct with `new`, `saturating_add`, `saturating_sub`, `incr_eviction_count` methods
-- [ ] 2.3 Extract `EntrySizeAndFrequency` struct with `new`, `add_policy_weight`, `add_frequency` methods
-- [ ] 2.4 Extract `AdmissionResult<K>` enum with `Admitted` and `Rejected` variants
+- [x] 2.1 Create `src/common/concurrent/admission.rs` file
+- [x] 2.2 Extract `EvictionCounters` struct with `new`, `saturating_add`, `saturating_sub`, `incr_eviction_count` methods
+- [x] 2.3 Extract `EntrySizeAndFrequency` struct with `new`, `add_policy_weight`, `add_frequency` methods
+- [x] 2.4 Extract `AdmissionResult<K>` enum with `Admitted` and `Rejected` variants
 
 ## 3. Create admission.rs module (logic)
 
@@ -31,9 +31,9 @@
 ## 4. Update module exports
 
 - [x] 4.1 Add `pub(crate) mod expiry;` to `src/common/concurrent.rs`
-- [ ] 4.2 Add `pub(crate) mod admission;` to `src/common/concurrent.rs`
+- [x] 4.2 Add `pub(crate) mod admission;` to `src/common/concurrent.rs`
 - [x] 4.3 ~~Add re-export for expiry functions~~ (Removed: callers use `expiry::function_name` directly)
-- [ ] 4.4 Add `pub(crate) use admission::{...};` to re-export types
+- [x] 4.4 Add `pub(crate) use admission::{...};` to re-export types
 
 ## 5. Update sync::base_cache
 
