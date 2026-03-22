@@ -16,6 +16,7 @@ exclude = [
     ".ci_extras/",
     ".claude/",
     ".codecov.yml",
+    ".coderabbit.yaml",
     ".devcontainer",
     ".github",
     ".gitignore",
