@@ -1307,12 +1307,7 @@ where
         F: Future<Output = Result<V, E>>,
         E: Send + Sync + 'static,
     {
-        futures_util::pin_mut!(init);
-        let hash = self.base.hash(&key);
-        let key = Arc::new(key);
-        self.get_or_try_insert_with_hash_and_fun(key, hash, init, false)
-            .await
-            .map(Entry::into_value)
+        self.try_get_with_entry(key, init).await.map(Entry::into_value)
     }
 
     /// Similar to [`try_get_with`](#method.try_get_with), but returns an [`Entry`]
